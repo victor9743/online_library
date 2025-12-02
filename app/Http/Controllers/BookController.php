@@ -65,6 +65,9 @@ class BookController extends Controller
             'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
         ]);
 
+        // replacing value to proper decimal format before saving
+        $data['value'] = str_replace(['.', ','], ['', '.'], $data['value']);
+
         $book->update($data);
         return redirect()->route('books.index')->with('success','Book successfully updated.');
     }
