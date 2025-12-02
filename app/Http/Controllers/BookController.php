@@ -61,7 +61,7 @@ class BookController extends Controller
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
             'category_id' => 'required|exists:categories,id',
-            'value' => 'required|numeric|min:0',
+            'value' => 'required',
             'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
         ]);
 

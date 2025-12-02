@@ -1,17 +1,17 @@
 <div class="mb-3">
-    <label>Título</label>
+    <label>Title</label>
     <input type="text" name="title" value="{{ old('title', $book->title ?? '') }}" class="form-control" required>
     @error('title')<div class="text-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="mb-3">
-    <label>Descrição</label>
+    <label>Description</label>
     <textarea name="description" class="form-control">{{ old('description', $book->description ?? '') }}</textarea>
     @error('description')<div class="text-danger">{{ $message }}</div>@enderror
 </div>
 
 <div class="mb-3">
-    <label>Autor</label>
+    <label>Author</label>
     <select name="author_id" class="form-control" required>
         <option value="">-- selecione --</option>
         @foreach($authors as $author)
@@ -22,7 +22,7 @@
 </div>
 
 <div class="mb-3">
-    <label>Categoria</label>
+    <label>Category</label>
     <select name="category_id" class="form-control" required>
         <option value="">-- selecione --</option>
         @foreach($categories as $cat)
@@ -33,7 +33,7 @@
 </div>
 
 <div class="mb-3">
-    <label>Valor (R$)</label>
+    <label>Value (R$)</label>
     <input type="text" step="0.01" name="value" id="value" value="{{ old('value', $book->value ?? 0) }}" class="form-control" required>
     @error('value')<div class="text-danger">{{ $message }}</div>@enderror
 </div>
