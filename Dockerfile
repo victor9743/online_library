@@ -40,3 +40,6 @@ RUN chmod -R 775 storage bootstrap/cache
 # Garante que o PHP-FPM roda como usuário www
 RUN sed -i "s/user = www-data/user = www/g" /usr/local/etc/php-fpm.d/www.conf \
     && sed -i "s/group = www-data/group = www/g" /usr/local/etc/php-fpm.d/www.conf
+
+COPY docker/start.sh /start.sh
+ENTRYPOINT ["/start.sh"]
