@@ -6,16 +6,16 @@ class Book extends Model
 {
     protected $fillable = ['title', 'description', 'author_id', 'category_id', 'value', 'status'];
 
-    const STATUS_AVAILABLE = 'disponivel';
-    const STATUS_RESERVED = 'reservado';
-    const STATUS_RENTED   = 'alugado';
+    const STATUS_AVAILABLE = 'available';
+    const STATUS_RESERVED = 'reserved';
+    const STATUS_RENTED   = 'rented';
 
     public static function statuses()
     {
         return [
-            self::STATUS_AVAILABLE => 'Disponível',
-            self::STATUS_RESERVED  => 'Reservado',
-            self::STATUS_RENTED    => 'Alugado',
+            self::STATUS_AVAILABLE => 'Available',
+            self::STATUS_RESERVED  => 'Reserved',
+            self::STATUS_RENTED    => 'Rented',
         ];
     }
 

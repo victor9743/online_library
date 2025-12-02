@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
         Author::create(['name' => 'J. K. Rowling']);
         Author::create(['name' => 'George Orwell']);
         
-        Category::create(['name' => 'Ficção']);
-        Category::create(['name' => 'Clássicos']);
-        Category::create(['name' => 'Distopia']);
-        Category::create(['name' => 'Fantasia']);
+        Category::create(['name' => 'Fiction']);
+        Category::create(['name' => 'Classics']);
+        Category::create(['name' => 'Dystopia']);
+        Category::create(['name' => 'Fantasy']);
     }
 }

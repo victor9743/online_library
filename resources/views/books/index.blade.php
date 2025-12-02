@@ -21,11 +21,11 @@
         <td>R$ {{ number_format($book->value,2,',','.') }}</td>
         <td>
             <span class="badge 
-                @if($book->status == 'disponivel') 
+                @if($book->status == 'available') 
                     text-bg-success
-                @elseif($book->status == 'reservado')
+                @elseif($book->status == 'reserved')
                     text-bg-warning
-                @elseif($book->status == 'indisponivel')
+                @elseif($book->status == 'rented')
                     text-bg-danger
                 @else
                     text-bg-secondary

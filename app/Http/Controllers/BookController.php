@@ -29,9 +29,12 @@ class BookController extends Controller
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
             'category_id' => 'required|exists:categories,id',
-            'value' => 'required|numeric|min:0',
+            'value' => 'required',
             'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
         ]);
+
+        // replacing value to proper decimal format before saving
+        $data['value'] = str_replace(['.', ','], ['', '.'], $data['value']);
 
         Book::create($data);
         return redirect()->route('books.index')->with('success',value: 'Book successfully created.');

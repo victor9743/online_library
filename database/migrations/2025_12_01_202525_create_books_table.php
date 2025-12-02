@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('author_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->decimal('value', 8, 2);
-            $table->enum('status', ['disponivel', 'reservado', 'alugado'])->default('disponivel');
+            $table->enum('status', ['available', 'reserved', 'rented'])->default('available');
             $table->timestamps();
         });
     }
