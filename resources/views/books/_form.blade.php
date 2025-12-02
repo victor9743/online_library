@@ -1,13 +1,21 @@
 <div class="mb-3">
     <label>Title</label>
     <input type="text" name="title" value="{{ old('title', $book->title ?? '') }}" class="form-control" required>
-    @error('title')<div class="text-danger">{{ $message }}</div>@enderror
+    @error('title')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+    @enderror
 </div>
 
 <div class="mb-3">
     <label>Description</label>
     <textarea name="description" class="form-control">{{ old('description', $book->description ?? '') }}</textarea>
-    @error('description')<div class="text-danger">{{ $message }}</div>@enderror
+    @error('description')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+    @enderror
 </div>
 
 <div class="mb-3">
@@ -18,33 +26,49 @@
             <option value="{{ $author->id }}" {{ old('author_id', $book->author_id ?? '') == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
         @endforeach
     </select>
-    @error('author_id')<div class="text-danger">{{ $message }}</div>@enderror
+
+    @error('author_id')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+    @enderror
 </div>
 
 <div class="mb-3">
     <label>Category</label>
     <select name="category_id" class="form-control" required>
         <option value="">-- selecione --</option>
-        @foreach($categories as $cat)
-            <option value="{{ $cat->id }}" {{ old('category_id', $book->category_id ?? '') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+        @foreach($categories as $categorie)
+            <option value="{{ $categorie->id }}" {{ old('category_id', $book->category_id ?? '') == $categorie->id ? 'selected' : '' }}>{{ $categorie->name }}</option>
         @endforeach
     </select>
-    @error('category_id')<div class="text-danger">{{ $message }}</div>@enderror
+
+    @error('category_id')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+    @enderror
 </div>
 
 <div class="mb-3">
     <label>Value (R$)</label>
-    <input type="text" step="0.01" name="value" id="value" value="{{ old('value', $book->value ?? 0) }}" class="form-control" required>
-    @error('value')<div class="text-danger">{{ $message }}</div>@enderror
+    <input type="text" step="0.01" max="999999.99" name="value" id="value" value="{{ old('value', $book->value ?? 0) }}" class="form-control" required>
+
+    @error('value')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+    @enderror
 </div>
 
 <div class="mb-3">
     <label>Status</label>
     <select name="status" class="form-control" required>
-    @foreach($statuses as $key => $label)
-        <option value="{{ $key }}" {{ old('status', $book->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
-    @endforeach
+        @foreach($statuses as $key => $label)
+            <option value="{{ $key }}" {{ old('status', $book->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
+        @endforeach
     </select>
+
     @error('status')<div class="text-danger">{{ $message }}</div>@enderror
 </div>
 

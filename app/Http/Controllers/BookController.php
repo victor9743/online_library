@@ -24,17 +24,19 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
+        // replacing value to proper decimal format before saving
+        $request->merge([
+            'value' => str_replace(['.', ','], ['', '.'], $request->value),
+        ]);
+
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
             'category_id' => 'required|exists:categories,id',
-            'value' => 'required',
+            'value' => 'required|numeric|min:0|max:999999.99',
             'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
         ]);
-
-        // replacing value to proper decimal format before saving
-        $data['value'] = str_replace(['.', ','], ['', '.'], $data['value']);
 
         Book::create($data);
         return redirect()->route('books.index')->with('success',value: 'Book successfully created.');
@@ -56,17 +58,19 @@ class BookController extends Controller
 
     public function update(Request $request, Book $book)
     {
+        // replacing value to proper decimal format before saving
+        $request->merge([
+            'value' => str_replace(['.', ','], ['', '.'], $request->value),
+        ]);
+
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
             'category_id' => 'required|exists:categories,id',
-            'value' => 'required',
+            'value' => 'required|numeric|min:0|max:999999.99',
             'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
         ]);
-
-        // replacing value to proper decimal format before saving
-        $data['value'] = str_replace(['.', ','], ['', '.'], $data['value']);
 
         $book->update($data);
         return redirect()->route('books.index')->with('success','Book successfully updated.');
