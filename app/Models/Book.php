@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $fillable = ['title', 'description', 'author_id', 'category_id', 'price', 'status'];
+    protected $fillable = ['title', 'description', 'author_id', 'category_id', 'value', 'status'];
 
     const STATUS_AVAILABLE = 'disponivel';
     const STATUS_RESERVED = 'reservado';

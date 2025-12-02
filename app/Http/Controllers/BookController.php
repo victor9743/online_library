@@ -11,7 +11,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::with(['author', 'category'])->paginate(10);
-        return view('books.index', compact('books'));
+        return view('books.index', data: compact('books'));
     }
 
     public function create()
@@ -29,12 +29,12 @@ class BookController extends Controller
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
             'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric|min:0',
+            'value' => 'required|numeric|min:0',
             'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
         ]);
 
         Book::create($data);
-        return redirect()->route('books.index')->with('success','Livro criado com sucesso.');
+        return redirect()->route('books.index')->with('success',value: 'Book successfully created.');
     }
 
     public function show(Book $book)
@@ -58,17 +58,17 @@ class BookController extends Controller
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
             'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric|min:0',
+            'value' => 'required|numeric|min:0',
             'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
         ]);
 
         $book->update($data);
-        return redirect()->route('books.index')->with('success','Livro atualizado com sucesso.');
+        return redirect()->route('books.index')->with('success','Book successfully updated.');
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('books.index')->with('success','Livro excluído.');
+        return redirect()->route('books.index')->with('success','Livro successfully deleted.');
     }
 }
