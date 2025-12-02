@@ -1,64 +1,74 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $books = Book::with(['author', 'category'])->paginate(10);
+        return view('books.index', compact('books'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $authors = Author::all();
+        $categories = Category::all();
+        $statuses = Book::statuses();
+        return view('books.create', compact('authors','categories','statuses'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'author_id' => 'required|exists:authors,id',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
+        ]);
+
+        Book::create($data);
+        return redirect()->route('books.index')->with('success','Livro criado com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Book $book)
     {
-        //
+        $book->load(['author','category']);
+        return view('books.show', compact('book'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Book $book)
     {
-        //
+        $authors = Author::all();
+        $categories = Category::all();
+        $statuses = Book::statuses();
+        return view('books.edit', compact('book','authors','categories','statuses'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Book $book)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'author_id' => 'required|exists:authors,id',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'status' => 'required|in:'.implode(',', array_keys(Book::statuses())),
+        ]);
+
+        $book->update($data);
+        return redirect()->route('books.index')->with('success','Livro atualizado com sucesso.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->route('books.index')->with('success','Livro excluído.');
     }
 }
